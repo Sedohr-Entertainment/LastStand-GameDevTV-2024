@@ -24,6 +24,8 @@ namespace LastStand.Weapons
         [SerializeField]
         private UnityEvent onCooldownFinish = new();
 
+        private GameObject lastSpawned;
+
         private void Awake()
         {
             onCooldownFinish.AddListener(SpawnWeapon);
@@ -45,15 +47,20 @@ namespace LastStand.Weapons
             onCooldownFinish?.Invoke();
         }
 
-        public void SpawnWeapon()
+        private void SpawnWeapon()
         {
             var weapon = _weaponSet.GetRandomWeapon();
-            Instantiate(weapon, _spawnLocation.position, Quaternion.identity);
+            lastSpawned = Instantiate(weapon, _spawnLocation.position, Quaternion.identity);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            // TODO: Add check if item is weapon
+            if (lastSpawned == null || other.gameObject != lastSpawned)
+            {
+                return;
+            }
+
+            lastSpawned = null;
             StartCoroutine(WeaponCooldown());
         }
     }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Weapon Set
   m_EditorClassIdentifier: 
   <Items>k__BackingField:
-  - <Weapon>k__BackingField: {fileID: -927199367670048503, guid: c3bde1a6f623d4b569b67c73aedfebbf,
+  - <Weapon>k__BackingField: {fileID: 2607634798596691443, guid: 9c8c9b2f47c1bbd49b2bf6502ebe6f23,
       type: 3}
     <SpawnProbability>k__BackingField: 0.5
