@@ -6,11 +6,12 @@ public class Enemy : MonoBehaviour
 {
     private NavMeshAgent _navMeshAgent;
     private int Health { get; set; }
-
+    public float Speed { get; set; }
+    
     [SerializeField] private GameObject BaseArea;
     
     [SerializeField] private Transform _target;
-    [SerializeField] private float _moveSpeed;
+    
 
     [SerializeField] private bool _reachedTopOfWall = false, _reachedExitArea = false;
     
@@ -27,7 +28,6 @@ public class Enemy : MonoBehaviour
         }
         else if (_reachedTopOfWall && !_reachedExitArea)
         {
-            _target.position = new Vector3();
             _navMeshAgent.SetDestination(BaseArea.transform.position);
         }
     }

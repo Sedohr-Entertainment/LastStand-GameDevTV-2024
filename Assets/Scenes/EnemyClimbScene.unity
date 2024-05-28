@@ -358,6 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da0211ec34f263438a4a0a766a853fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseArea: {fileID: 0}
   _target: {fileID: 189567592}
   _moveSpeed: 0
   _reachedTopOfWall: 0
@@ -460,6 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da0211ec34f263438a4a0a766a853fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseArea: {fileID: 0}
   _target: {fileID: 189567592}
   _moveSpeed: 0
   _reachedTopOfWall: 0
@@ -584,7 +586,7 @@ PrefabInstance:
     - target: {fileID: 5674075356657402348, guid: 7e38136a601fead4a9e3d91f1163ff27,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -621,6 +623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da0211ec34f263438a4a0a766a853fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseArea: {fileID: 0}
   _target: {fileID: 189567592}
   _moveSpeed: 0
   _reachedTopOfWall: 0
@@ -745,7 +748,7 @@ PrefabInstance:
     - target: {fileID: 5674075356657402348, guid: 7e38136a601fead4a9e3d91f1163ff27,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -835,7 +838,7 @@ PrefabInstance:
     - target: {fileID: 5674075356657402348, guid: 7e38136a601fead4a9e3d91f1163ff27,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1094,6 +1097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da0211ec34f263438a4a0a766a853fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseArea: {fileID: 0}
   _target: {fileID: 189567592}
   _moveSpeed: 0
   _reachedTopOfWall: 0
@@ -1218,7 +1222,7 @@ PrefabInstance:
     - target: {fileID: 5674075356657402348, guid: 7e38136a601fead4a9e3d91f1163ff27,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1255,6 +1259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da0211ec34f263438a4a0a766a853fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseArea: {fileID: 0}
   _target: {fileID: 189567592}
   _moveSpeed: 0
   _reachedTopOfWall: 0
@@ -1397,6 +1402,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1356358711}
+    - targetCorrespondingSourceObject: {fileID: 5674075356657402348, guid: 7e38136a601fead4a9e3d91f1163ff27,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1356358714}
   m_SourcePrefab: {fileID: 100100000, guid: 7e38136a601fead4a9e3d91f1163ff27, type: 3}
 --- !u!1 &1356358710 stripped
 GameObject:
@@ -1416,6 +1425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da0211ec34f263438a4a0a766a853fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseArea: {fileID: 0}
   _target: {fileID: 189567592}
   _moveSpeed: 0
   _reachedTopOfWall: 0
@@ -1469,6 +1479,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1356358714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356358710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9e242ca7da8704e85bcc1164845cb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1503483450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,7 +1859,7 @@ PrefabInstance:
     - target: {fileID: 5674075356657402348, guid: 7e38136a601fead4a9e3d91f1163ff27,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1874,6 +1896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da0211ec34f263438a4a0a766a853fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseArea: {fileID: 0}
   _target: {fileID: 189567592}
   _moveSpeed: 0
   _reachedTopOfWall: 0
@@ -1998,7 +2021,7 @@ PrefabInstance:
     - target: {fileID: 5674075356657402348, guid: 7e38136a601fead4a9e3d91f1163ff27,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
