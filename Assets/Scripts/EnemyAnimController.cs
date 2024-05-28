@@ -8,18 +8,20 @@ public class EnemyAnimController : MonoBehaviour
 {
     
     private Animator _animController;
-    private Enemy _enemy;
-    
+   
     private void Awake()
     {
         _animController = GetComponent<Animator>();
-        _enemy = GetComponent<Enemy>();
         
     }
 
-    private void SetAnimation()
+    public void SetFloat(float movementSpeed)
     {
-        _animController.SetFloat("", _enemy.Speed );
+        _animController.SetFloat("MovementSpeed", movementSpeed );
+    }
+    public void SetBool()
+    {
+        _animController.SetBool("IsClimbing", true );
     }
 
 
