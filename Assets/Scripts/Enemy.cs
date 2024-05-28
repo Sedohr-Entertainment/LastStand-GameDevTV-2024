@@ -1,5 +1,3 @@
-using System;
-using Unity.AI.Navigation.Editor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,10 +7,12 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent _navMeshAgent;
     private int Health { get; set; }
 
+    [SerializeField] private GameObject BaseArea;
+    
     [SerializeField] private Transform _target;
     [SerializeField] private float _moveSpeed;
 
-    [SerializeField] private bool _wallReached = false;
+    [SerializeField] private bool _reachedTopOfWall = false, _reachedExitArea = false;
     
     private void Awake()
     {
@@ -21,7 +21,15 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        MoveToDestination();
+        if (!_reachedTopOfWall && !_reachedExitArea)
+        {
+            MoveToDestination();
+        }
+        else if (_reachedTopOfWall && !_reachedExitArea)
+        {
+            _target.position = new Vector3();
+            _navMeshAgent.SetDestination(BaseArea.transform.position);
+        }
     }
 
     public void TakeDamage(int amount)
@@ -39,15 +47,16 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void StartClimb()
-    {
-        
-    }
-
     private void MoveToDestination()
     {
         _navMeshAgent.SetDestination(_target.position);
+        
+        float distance = Vector3.Distance(transform.position, _target.position);
+
+        if (distance <= _navMeshAgent.stoppingDistance)
+        {
+            _reachedTopOfWall = true;
+        }
     }
     
-
 }
