@@ -6,7 +6,10 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     private NavMeshAgent _navMeshAgent;
-    private int Health { get; set; }
+    private Rigidbody _rigidbody;
+    
+    [field: SerializeField]
+    public int Health { get; private set; }
     
     [field: SerializeField]
     public float Speed { get; private set; }
@@ -16,23 +19,33 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject BaseArea;
     [SerializeField] private Transform _target;
     [SerializeField] private bool _reachedTopOfWall = false, _reachedExitArea = false;
+    private bool _isAlive = true;
     [SerializeField] private float rayDistance = 0.1f;
     
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animController = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        if (!_reachedTopOfWall && !_reachedExitArea)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            MoveToDestination();
+            TakeDamage(1);
         }
-        else if (_reachedTopOfWall && !_reachedExitArea)
+        
+        if (_isAlive)
         {
-            _navMeshAgent.SetDestination(BaseArea.transform.position);
+            if (!_reachedTopOfWall && !_reachedExitArea)
+            {
+                MoveToDestination();
+            }
+            else if (_reachedTopOfWall && !_reachedExitArea)
+            {
+                _navMeshAgent.SetDestination(BaseArea.transform.position);
+            }
         }
         ShootRaycast();
 
@@ -49,9 +62,11 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        //TODO Kill enemy and Play death animation
-        Destroy(gameObject);
+        _isAlive = false;
+        _rigidbody.AddForce(Vector3.down * 15f, ForceMode.Impulse);
         _animController.SetBool("HasDied", true);
+        _navMeshAgent.enabled = false;
+        Destroy(gameObject, 2.5f);
     }
 
     private void MoveToDestination()
