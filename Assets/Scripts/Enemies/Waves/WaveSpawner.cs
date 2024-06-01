@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(BoxCollider))]
 public class WaveSpawner : MonoBehaviour
 {
     [SerializeField]
@@ -13,17 +14,21 @@ public class WaveSpawner : MonoBehaviour
 
     public int CurrentWave { get; private set; } = -1;
     private int currentWaveIndex = 0;
-    
+
     [Header("Events")]
     public UnityEvent<int> onStartNewWave;
-    
-    private int enemiesAlive;
 
+    private int enemiesAlive;
     private Coroutine waveCycle;
+    private BoxCollider boxCollider;
+    
+    private System.Random random = new ();
+
 
     private void Awake()
     {
         SortWaves();
+        boxCollider = GetComponent<BoxCollider>();
     }
 
     private void Start()
@@ -60,7 +65,7 @@ public class WaveSpawner : MonoBehaviour
         uint maxBatchAmount = waves[currentWaveIndex].maxBatchAmount;
 
         var enemyCollection = waves[currentWaveIndex].EnemyCollection;
-        
+
         var waitForSeconds = new WaitForSeconds(waves[currentWaveIndex].SpawnInterval);
 
         while (totalToSpawn > 0)
@@ -78,9 +83,10 @@ public class WaveSpawner : MonoBehaviour
             {
                 var enemyGameObject = Instantiate(enemyCollection.GetRandomEnemy());
                 var enemy = enemyGameObject.GetComponent<Enemy>();
+                enemyGameObject.transform.position = GetRandomStartPosition();
 
                 enemiesAlive++;
-                
+
                 if (enemy == null)
                 {
                     Debug.LogWarning($"The prefab used doesn't contain an enemy component! (${enemyGameObject.name})");
@@ -88,22 +94,28 @@ public class WaveSpawner : MonoBehaviour
                 else
                 {
                     enemy.onDie.AddListener(() => enemiesAlive--);
-                    
-                    // TODO: Pick random start position;
                 }
             }
 
             totalToSpawn -= currentToSpawn;
             yield return waitForSeconds;
         }
-        
+
         waveCycle = null;
+    }
+
+    private Vector3 GetRandomStartPosition()
+    {
+        Vector3 center = transform.position + boxCollider.center;
+        center.x += -boxCollider.size.x + (float)random.NextDouble() * boxCollider.size.x * 2;
+        center.z += -boxCollider.size.z + (float)random.NextDouble() * boxCollider.size.z * 2;
+        return center;
     }
 
     private int GetCurrentWaveIndex()
     {
         int index = waves.Count - 1;
-        for(int i = 0; i < waves.Count; i++)
+        for (int i = 0; i < waves.Count; i++)
         {
             if (CurrentWave >= waves[i].From && CurrentWave <= waves[i].To)
             {

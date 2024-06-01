@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyCollection
   m_EditorClassIdentifier: 
   <Enemies>k__BackingField:
-  - <Prefab>k__BackingField: {fileID: 3490066330406847947, guid: b3150552364c03d4389a5eff5c4966a1,
+  - <Prefab>k__BackingField: {fileID: 3995301353669663987, guid: 610ff19e48e7a8240b1d053576b8b237,
       type: 3}
     <SpawnProbability>k__BackingField: 1
   seedForRandomEnemy: Enemies

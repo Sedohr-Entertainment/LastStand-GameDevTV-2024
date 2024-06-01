@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WavePreset
   m_EditorClassIdentifier: 
   <WaveDuration>k__BackingField: 10
-  <SpawnInterval>k__BackingField: 10
+  <SpawnInterval>k__BackingField: 5
   <AmounToSpawn>k__BackingField: 100
   <From>k__BackingField: 1
   <To>k__BackingField: 10
