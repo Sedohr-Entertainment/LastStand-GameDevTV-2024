@@ -1060,6 +1060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da0211ec34f263438a4a0a766a853fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Health>k__BackingField: 1
   <Speed>k__BackingField: 10
   BaseArea: {fileID: 0}
   _target: {fileID: 0}

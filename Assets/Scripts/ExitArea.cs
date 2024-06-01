@@ -1,21 +1,17 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ExitArea : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision other)
-    {
-        Debug.Log("Test");
-    }
-
+    public UnityEvent onAreaEntered;
+  
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"{other.gameObject}");
         var enemy = other.gameObject.GetComponent<Enemy>();
         if (enemy != null)
         {
-            //TODO add game over condition
-            Debug.Log("Game Over!");
+            onAreaEntered?.Invoke();
         }    
     }
 }
