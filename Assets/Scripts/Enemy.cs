@@ -1,10 +1,15 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour
 {
+    public delegate void EnemyDestroyed(GameObject enemy);
+    public event EnemyDestroyed OnEnemyDestroyed;
+    
     private NavMeshAgent _navMeshAgent;
     private Rigidbody _rigidbody;
     
@@ -17,16 +22,24 @@ public class Enemy : MonoBehaviour
     
     private Animator _animController;
     [SerializeField] private GameObject BaseArea;
-    [SerializeField] private Transform _target;
+    private List<Transform> _targets;
+   
+
     [SerializeField] private bool _reachedTopOfWall = false, _reachedExitArea = false;
     private bool _isAlive = true;
     [SerializeField] private float rayDistance = 0.1f;
-    
+    private int rnd;    
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animController = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+        _targets = new List<Transform>();
+        foreach (Transform target in GameObject.FindWithTag("Targets").GetComponentInChildren<Transform>())
+        {
+            _targets.Add(target);
+        }
+        rnd = Random.Range(0, _targets.Count);
     }
 
     private void Update()
@@ -44,12 +57,22 @@ public class Enemy : MonoBehaviour
             }
             else if (_reachedTopOfWall && !_reachedExitArea)
             {
-                _navMeshAgent.SetDestination(BaseArea.transform.position);
+                if (BaseArea != null)
+                {
+                    
+                    _navMeshAgent.SetDestination(BaseArea.transform.position);
+                }
+                else
+                {
+                    BaseArea = GameObject.FindGameObjectWithTag("Exit");
+                }
             }
         }
+        
         ShootRaycast();
 
     }
+
 
     public void TakeDamage(int amount)
     {
@@ -66,18 +89,24 @@ public class Enemy : MonoBehaviour
         _rigidbody.AddForce(Vector3.down * 15f, ForceMode.Impulse);
         _animController.SetBool("HasDied", true);
         _navMeshAgent.enabled = false;
+        OnEnemyDestroyed?.Invoke(gameObject);
         Destroy(gameObject, 2.5f);
     }
 
     private void MoveToDestination()
     {
-        _navMeshAgent.SetDestination(_target.position);
-        _animController.SetFloat("MovementSpeed" ,Speed);
-        float distance = Vector3.Distance(transform.position, _target.position);
-
-        if (distance <= _navMeshAgent.stoppingDistance)
+        if (_targets != null)
         {
-            _reachedTopOfWall = true;
+            
+            _navMeshAgent.SetDestination(_targets[rnd].position);
+            _animController.SetFloat("MovementSpeed" ,Speed);
+            float distance = Vector3.Distance(transform.position, _targets[rnd].position);
+
+            if (distance <= _navMeshAgent.stoppingDistance)
+            {
+                _reachedTopOfWall = true;
+            }
+
         }
     }
     
