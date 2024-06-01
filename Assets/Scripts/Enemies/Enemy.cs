@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour
@@ -21,7 +22,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private bool _reachedTopOfWall = false, _reachedExitArea = false;
     private bool _isAlive = true;
     [SerializeField] private float rayDistance = 0.1f;
-    
+
+    public UnityEvent onDie;
+     
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -62,6 +65,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        onDie?.Invoke();
         _isAlive = false;
         _rigidbody.AddForce(Vector3.down * 15f, ForceMode.Impulse);
         _animController.SetBool("HasDied", true);
