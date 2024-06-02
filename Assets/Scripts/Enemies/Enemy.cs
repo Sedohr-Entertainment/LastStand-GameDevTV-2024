@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -29,6 +30,8 @@ public class Enemy : MonoBehaviour
     private bool _isAlive = true;
     [SerializeField] private float rayDistance = 0.1f;
     private int rnd;    
+    public UnityEvent onDie;
+     
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -85,6 +88,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        onDie?.Invoke();
         _isAlive = false;
         _rigidbody.AddForce(Vector3.down * 15f, ForceMode.Impulse);
         _animController.SetBool("HasDied", true);
